@@ -229,6 +229,19 @@ span {
   cursor: pointer;
   margin-left: 25px;
   display: none;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+#menu-icon:hover {
+  background: rgba(0, 191, 255, 0.1);
+  color: var(--accent-color);
+}
+
+#menu-icon:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 section {
@@ -1368,6 +1381,8 @@ header.sticky {
     transition: all .45s ease;
     border-top: 1px solid var(--border-color);
     padding: 20px 0;
+    z-index: 999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 
   .navlist a {

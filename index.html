@@ -21,6 +21,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- JavaScript -->
+    <script src="js/script.js" defer></script>
 </head>
 <body>
     <!-- Animated Background Effects -->
@@ -29,7 +32,7 @@
     <!-- Header -->
     <header>
         <a href="#" class="logo">G<span>V</span>.</a>
-        <ul class="navlist">
+        <ul class="navlist" id="navlist">
             <li><a href="#home" class="active">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -37,7 +40,7 @@
             <li><a href="#certifications">Certifications</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="bx bx-menu" id="menu-icon"></div>
+        <div class="bx bx-menu" id="menu-icon" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navlist"></div>
     </header>
     
     <!-- Hero Section -->
