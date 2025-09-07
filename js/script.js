@@ -24,10 +24,27 @@ menu.onclick = () => {
 	document.body.style.overflow = !isOpen ? 'hidden' : 'auto';
 };
 
-// Close menu when clicking on navigation links
+// Smooth scrolling and section highlighting
 const navLinks = document.querySelectorAll('.navlist a');
+const sections = document.querySelectorAll('section[id]');
+
+// Smooth scrolling for navigation links
 navLinks.forEach(link => {
-	link.addEventListener('click', () => {
+	link.addEventListener('click', (e) => {
+		e.preventDefault();
+		
+		const targetId = link.getAttribute('href');
+		const targetSection = document.querySelector(targetId);
+		
+		if (targetSection) {
+			// Smooth scroll to target section
+			targetSection.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start'
+			});
+		}
+		
+		// Close mobile menu
 		menu.classList.remove('bx-x');
 		menu.classList.add('bx-menu');
 		navlist.classList.remove('open');
@@ -36,14 +53,46 @@ navLinks.forEach(link => {
 	});
 });
 
-// Close menu when scrolling
-window.onscroll = () => {
-	menu.classList.remove('bx-x');
-	menu.classList.add('bx-menu');
-	navlist.classList.remove('open');
-	menu.setAttribute('aria-expanded', 'false');
-	document.body.style.overflow = 'auto';
+// Intersection Observer for section highlighting
+const observerOptions = {
+	root: null,
+	rootMargin: '-20% 0px -60% 0px',
+	threshold: 0.1
 };
+
+const observer = new IntersectionObserver((entries) => {
+	entries.forEach(entry => {
+		if (entry.isIntersecting) {
+			const sectionId = entry.target.getAttribute('id');
+			const correspondingLink = document.querySelector(`.navlist a[href="#${sectionId}"]`);
+			
+			// Remove active class from all links
+			navLinks.forEach(link => link.classList.remove('active'));
+			
+			// Add active class to current section's link
+			if (correspondingLink) {
+				correspondingLink.classList.add('active');
+			}
+		}
+	});
+}, observerOptions);
+
+// Observe all sections
+sections.forEach(section => {
+	observer.observe(section);
+});
+
+// Close menu when scrolling (but don't interfere with section highlighting)
+window.addEventListener('scroll', () => {
+	// Only close menu if it's open
+	if (navlist.classList.contains('open')) {
+		menu.classList.remove('bx-x');
+		menu.classList.add('bx-menu');
+		navlist.classList.remove('open');
+		menu.setAttribute('aria-expanded', 'false');
+		document.body.style.overflow = 'auto';
+	}
+});
 
 // Close menu when clicking outside
 document.addEventListener('click', (e) => {

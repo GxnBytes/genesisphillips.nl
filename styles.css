@@ -8,6 +8,11 @@
   scroll-behavior: smooth;
 }
 
+/* Ensure smooth scrolling works on all browsers */
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Modern Cybersecurity Dark Theme */
   --bg-color: #0a0a0a;
@@ -499,6 +504,19 @@ header.sticky {
   object-fit: cover;
   border: 6px solid #00aaff; /* thicker cyber border */
   box-shadow: 0 0 30px rgba(0, 170, 255, 0.6);
+  animation: floating 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateZ(0px) scale(1);
+    box-shadow: 0 0 30px rgba(0, 170, 255, 0.6);
+  }
+  50% {
+    transform: translateZ(15px) scale(1.05);
+    box-shadow: 0 0 45px rgba(0, 170, 255, 0.8);
+  }
 }
 
 
@@ -721,6 +739,13 @@ header.sticky {
   }
 }
 
+@media screen and (max-width: 990px) {
+  .case-studies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
 @media screen and (max-width: 650px) {
   :root {
     font-size: 12px;
@@ -742,6 +767,15 @@ header.sticky {
   
   .tool-icon i {
     font-size: 2rem;
+  }
+
+  .case-studies-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .case-study-card {
+    padding: 2rem 1.5rem;
   }
 }
 
@@ -799,13 +833,10 @@ header.sticky {
 
 .case-studies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
   position: relative;
   z-index: 2;
-  justify-content: center;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .case-study-card {
@@ -1445,14 +1476,6 @@ header.sticky {
     gap: 1.5rem;
   }
 
-  .case-studies-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .case-study-card {
-    padding: 2rem 1.5rem;
-  }
 
   .cyber-grid {
     width: 250px;
