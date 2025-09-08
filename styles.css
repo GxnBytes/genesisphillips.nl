@@ -777,6 +777,12 @@ header.sticky {
   .case-study-card {
     padding: 2rem 1.5rem;
   }
+  
+  .project-status {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    margin-bottom: 1.2rem;
+  }
 }
 
 /* PROJECTS SECTION */
@@ -929,6 +935,24 @@ header.sticky {
   margin-bottom: 1.5rem;
   position: relative;
   z-index: 2;
+}
+
+.project-status {
+  display: inline-block;
+  background: #f1c40f;
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .case-study-details {
