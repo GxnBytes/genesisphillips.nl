@@ -1794,6 +1794,44 @@ section.home {
 /* Ensure hero text area centers its inner content on desktop */
 .home-text { display: flex; flex-direction: column; align-items: center; }
 
+/* Center hero stack (heading, socials, CTA) */
+.home-content { display: grid; grid-template-columns: 1fr; justify-items: center; row-gap: 0.75rem; }
+.home-text { order: 1; align-items: center; text-align: center; }
+.hero-socials { order: 2; display: flex; gap: 1rem; margin: 10px 0 8px; justify-content: center; flex-wrap: wrap; }
+.home .button { order: 3; }
+
+/* Reference-style social buttons: black circles with brand icons */
+.hero-socials a {
+  width: 62px; height: 62px;
+  border-radius: 9999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #000000; border: none;
+  box-shadow: 0 8px 18px rgba(15,23,42,0.12);
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+.hero-socials a i { font-size: 26px; line-height: 1; }
+/* White or brand-tinted icons on black */
+.hero-socials a[data-brand="youtube"] i { color: #ffffff; }
+.hero-socials a[data-brand="instagram"] i { color: #ffffff; }
+.hero-socials a[data-brand="twitter"] i { color: #ffffff; }
+.hero-socials a[data-brand="linkedin"] i { color: #ffffff; }
+
+/* Force GitHub icon to white */
+.hero-socials a[data-brand="github"] i { color: #ffffff !important; }
+
+/* Hover: subtle lift/brightness; keep black circle */
+.hero-socials a:hover { transform: scale(1.06); filter: brightness(1.05); box-shadow: 0 12px 28px rgba(15,23,42,0.18); }
+
+/* Responsive sizing */
+@media (max-width: 960px) {
+  .hero-socials a { width: 58px; height: 58px; }
+  .hero-socials a i { font-size: 24px; }
+}
+@media (max-width: 640px) {
+  .hero-socials a { width: 54px; height: 54px; }
+  .hero-socials a i { font-size: 22px; }
+}
+
 @media (max-width: 960px) {
   /* Mobile-first vertical layout order */
   .home-content { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
@@ -1860,4 +1898,54 @@ section.home {
 
 @media (max-width: 840px) {
   .section-header { margin-bottom: 2.2rem; }
+}
+
+/* Desktop: place profile image to the RIGHT of hero text */
+@media (min-width: 961px) {
+  .home-content { grid-template-columns: 1fr 0.9fr; column-gap: 3rem; }
+  .home-text { order: 1; align-items: flex-start; text-align: left; }
+  .hero-socials { justify-content: flex-start; }
+  .home .button { justify-content: flex-start; }
+  .home-image { order: 2; justify-content: flex-start; }
+}
+
+/* Pulsing neon-blue ring around profile picture (use theme accent) */
+.profile-pic-hero {
+  position: relative;
+  z-index: 1;
+  border: 6px solid var(--accent-color);
+  box-shadow: 0 0 30px rgba(59,130,246,0.55), 0 8px 24px rgba(15, 23, 42, 0.10);
+  animation: heroFloat 5.5s ease-in-out infinite;
+}
+.profile-pic-hero::after {
+  content: '';
+  position: absolute;
+  inset: -12px; /* ring thickness */
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(59,130,246,0.50), rgba(59,130,246,0.18) 60%, rgba(59,130,246,0.0) 72%);
+  filter: blur(6px);
+  z-index: -1;
+  animation: ringPulse 4.8s ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.04); }
+}
+/* On hover: add gentle sway while continuing float */
+@keyframes hoverSway { 0%,100% { transform: translateX(0) rotate(0deg); } 50% { transform: translateX(4px) rotate(0.4deg); } }
+.profile-pic-hero:hover { animation: heroFloat 5.5s ease-in-out infinite, hoverSway 2.4s ease-in-out infinite; }
+
+/* Desktop placement: image on the right aligned with text */
+@media (min-width: 961px) {
+  .home-content { grid-template-columns: 1fr 0.9fr; column-gap: 3rem; align-items: center; }
+  .home-text { order: 1; align-items: flex-start; text-align: left; }
+  .hero-socials { justify-content: flex-start; }
+  .home .button { justify-content: flex-start; }
+  .home-image { order: 2; display: flex; justify-content: flex-start; align-items: center; }
+}
+
+/* Prevent fixed header overlap on small screens */
+@media (max-width: 840px) {
+  header { min-height: 72px; padding-top: 12px; padding-bottom: 12px; }
+  body { padding-top: 72px; }
 }
