@@ -1786,14 +1786,32 @@ section.home {
 }
 .profile-pic-hero:hover { transform: translateY(-3px) scale(1.01); }
 
+/* Hero social icons: larger and centered under heading */
+.hero-socials { gap: 0.9rem; justify-content: center; }
+.hero-socials a { width: 50px; height: 50px; }
+.hero-socials a i { font-size: 20px; }
+
+/* Ensure hero text area centers its inner content on desktop */
+.home-text { display: flex; flex-direction: column; align-items: center; }
+
 @media (max-width: 960px) {
-  .home-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    text-align: center;
-  }
-  .home-image { order: 2; }
-  .hero-socials { justify-content: center; }
+  /* Mobile-first vertical layout order */
+  .home-content { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .home-text { order: 1; align-items: center; }
+  .hero-socials { order: 2; justify-content: center; }
+  .home-image { order: 3; }
+  .button { order: 4; }
+
+  /* Increase spacing for clarity on mobile */
+  .home-text h3 { margin-bottom: 10px; }
+  .hero-socials { margin: 6px 0 4px; }
+  .home-image { margin: 6px 0 8px; }
+  .button { margin-top: 6px; }
+}
+
+@media (max-width: 640px) {
+  .hero-socials a { width: 48px; height: 48px; }
+  .hero-socials a i { font-size: 19px; }
 }
 
 /* Contact centered layout and prominent heading */
@@ -1842,22 +1860,4 @@ section.home {
 
 @media (max-width: 840px) {
   .section-header { margin-bottom: 2.2rem; }
-}
-
-/* Hero social icons: round, icon-only */
-.hero-socials { gap: 0.75rem; }
-.hero-socials a {
-  width: 44px; height: 44px;
-  padding: 0; border-radius: 9999px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(15,23,42,0.06);
-}
-.hero-socials a i { font-size: 18px; color: var(--text-secondary); }
-.hero-socials a:hover { background: #ffffff; border-color: var(--accent-color); box-shadow: 0 0 0 3px rgba(59,130,246,0.15), 0 10px 20px rgba(15,23,42,0.10); transform: translateY(-2px); }
-.hero-socials a:hover i { color: var(--accent-color); }
-
-@media (max-width: 960px) {
-  .hero-socials a { width: 42px; height: 42px; }
 }
