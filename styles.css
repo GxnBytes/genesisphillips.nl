@@ -1949,3 +1949,82 @@ section.home {
   header { min-height: 72px; padding-top: 12px; padding-bottom: 12px; }
   body { padding-top: 72px; }
 }
+
+/* Heartbeat animations: gentle scale + glowing blue shadow */
+@keyframes heartbeatScale {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.02); }
+  50% { transform: scale(1.035); }
+  75% { transform: scale(1.02); }
+}
+@keyframes heartbeatGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 26px rgba(59,130,246,0.45),
+      0 8px 24px rgba(15, 23, 42, 0.10);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(59,130,246,0.70),
+      0 12px 30px rgba(15, 23, 42, 0.12);
+  }
+}
+
+/* Ensure container allows animation and glow to render cleanly */
+.home-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  will-change: transform;
+}
+
+/* Heartbeat: scale the container smoothly at all sizes */
+.home-image { animation: heartbeatScale 4s ease-in-out infinite; }
+
+/* Container-based neon ring: tighter, darker, more neon, confined to the thin strip */
+.home-image::after {
+  content: '';
+  position: absolute;
+  inset: -6px; /* thin ring just around the image */
+  border-radius: 50%;
+  background: transparent;
+  border: 4px solid rgba(59,130,246,0.85); /* darker neon blue ring */
+  box-shadow:
+    0 0 10px rgba(59,130,246,0.55),
+    0 0 2px rgba(59,130,246,0.9) inset; /* crisp neon edge */
+  z-index: 0;
+  animation: neonPulse 4.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    border-color: rgba(59,130,246,0.85);
+    box-shadow:
+      0 0 10px rgba(59,130,246,0.55),
+      0 0 2px rgba(59,130,246,0.9) inset;
+  }
+  50% {
+    border-color: rgba(59,130,246,1);
+    box-shadow:
+      0 0 14px rgba(59,130,246,0.75),
+      0 0 3px rgba(59,130,246,1) inset;
+  }
+}
+
+/* Keep image above the glow and run only float (+ sway on hover) */
+.profile-pic-hero {
+  position: relative;
+  z-index: 1;
+  border: 6px solid var(--accent-color);
+  box-shadow:
+    0 0 30px rgba(59,130,246,0.55),
+    0 8px 24px rgba(15, 23, 42, 0.10);
+  animation: heroFloat 5.5s ease-in-out infinite;
+}
+.profile-pic-hero:hover { animation: heroFloat 5.5s ease-in-out infinite, hoverSway 2.4s ease-in-out infinite; }
+
+/* Disable any prior pseudo-glow directly on the image to avoid double glow */
+.profile-pic-hero::after { content: none; }
