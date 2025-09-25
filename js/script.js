@@ -116,3 +116,15 @@ document.addEventListener('keydown', (e) => {
 		menu.focus(); // Return focus to menu button
 	}
 });
+
+// Intersection Observer for reveal animations
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { root: null, threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
